@@ -32,50 +32,114 @@
         </div>
         <center><button type="submit" id="download" class="btn btn-danger">Download</button></center>
     </div>
+
+    <div></br>
+        <div class="form-group">
+            <label for="file_txt">Upload a file : </label>
+            <input type="file" class="form-control" id="file_txt" name="file_txt" accept=".txt">
+        </div>
+        <div class="form-group">
+            <label for="key_file">Enter a key :</label>
+            <input type="text" class="form-control" id="key_file" placeholder="key" name="key_file">
+        </div>
+        <center><div class="add_text"></div></br></center>
+        <center><div class="add_buttons">
+            <button type="submit" id="encrypt_file" class="btn btn-primary">Encrypt</button>
+            <button type="submit" id="decrypt_file" class="btn btn-success">Decrypt</button>
+        </div></center>
+    </div>
 </div>
 <script>
-    function hex_to_ascii(str1)
-    {
-        var hex  = str1.toString();
-        var str = '';
-        for (var n = 0; n < hex.length; n += 2) {
-            str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
-        }
-        return str;
+function hex_to_ascii(str1)
+{
+    var hex  = str1.toString();
+    var str = '';
+    for (var n = 0; n < hex.length; n += 2) {
+        str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
     }
+    return str;
+}
 
-    function download(filename, text) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-    }
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
 
-    $(document).ready(function() {
-        $('#download').on('click', function() {
-            var text = $('#secret').val();
-            var filename = "encrypted_message.txt";
-            download(filename, text);
-        });
-
-        $('#encrypt').on('click', function() {
-            let message = $('#message').val(); 
-            let key = $('#key').val();
-            let encrypted = CryptoJS.AES.encrypt(message, key);
-            $('#secret').text(encrypted);
-        });
-
-        $('#decrypt').on('click', function() {
-            let encrypted = $('#message').val();  
-            let key = $('#key').val();
-            let decrypted = CryptoJS.AES.decrypt(encrypted, key);
-            decrypted = hex_to_ascii(decrypted);
-            $('#secret').text(decrypted);
-        });
+$(document).ready(function() {
+    $('#download').on('click', function() {
+        var text = $('#secret').val();
+        var filename = "encrypted_message.txt";
+        download(filename, text);
     });
+
+    var fileInput = document.querySelector('#file_txt');
+    fileInput.onchange = function() {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var fileContent = reader.result;
+
+            $('#encrypt_file').on('click', function() {
+                let key = $('#key_file').val();
+                let encrypted = CryptoJS.AES.encrypt(fileContent, key);
+                
+                let str = `<button type="submit" id="download_file" class="btn btn-danger">Download</button>`;
+                let html = $.parseHTML(str);
+                $('.add_buttons').append(html);
+
+                $('.add_text').html('Your file has been encrypt, now you can download his new version');
+
+                $('#download_file').on('click', function() {
+                    var filename = "encrypted_message.txt";
+                    download(filename, encrypted);
+                });
+            });
+
+            $('#decrypt_file').on('click', function() {
+                let key = $('#key_file').val();
+                let decrypted = CryptoJS.AES.decrypt(fileContent, key);
+                decrypted = hex_to_ascii(decrypted);
+                
+                let str = `<button type="submit" id="download_file" class="btn btn-danger">Download</button>`;
+                let html = $.parseHTML(str);
+                if( $('.add_buttons').children().length > 0 ) {
+                    $('#download_file').remove();
+                }
+                $('.add_buttons').append(html);
+
+                $('.add_text').html('Your file has been decrypt, now you can download his new version');
+
+                $('#download_file').on('click', function() {
+                    var filename = "decrypted_message.txt";
+                    download(filename, decrypted);
+                });
+            });
+
+        };
+        reader.readAsText(fileInput.files[0]);
+    };
+
+    
+
+    $('#encrypt').on('click', function() {
+        let message = $('#message').val(); 
+        let key = $('#key').val();
+        let encrypted = CryptoJS.AES.encrypt(message, key);
+        $('#secret').text(encrypted);
+    });
+
+    $('#decrypt').on('click', function() {
+        let encrypted = $('#message').val();  
+        let key = $('#key').val();
+        let decrypted = CryptoJS.AES.decrypt(encrypted, key);
+        decrypted = hex_to_ascii(decrypted);
+        $('#secret').text(decrypted);
+    });
+});
 </script>
 </body>
 

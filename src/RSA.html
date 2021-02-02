@@ -74,27 +74,47 @@
 
 
         $('#encrypt').on('click', function() {
+            let message = [];
+            let encrypted = [];
+
             let public_key = $('#public_key').val(); 
             let input = $('#input').val();
 
             var js_encrypt = new JSEncrypt();
             js_encrypt.setPublicKey(public_key);
 
-            let encrypted = js_encrypt.encrypt(input);
+            let size = input.length / 50 ;
 
-            $('#secret').text(encrypted);
+            var regex = /.{1,50}/g;
+            let new_message = input.match(regex)
+
+            for( let i = 0 ; i< size ; i++ ) {
+                message.push( js_encrypt.encrypt(new_message[i]) );
+            }
+
+            $('#secret').text(message.toString());
         });
 
         $('#decrypt').on('click', function() {
+            let message = [];
+            let encrypted = [];
+
             let secret = $('#secret').val();  
             let private_key = $('#private_key').val();
 
             var js_decrypt = new JSEncrypt();
             js_decrypt.setPrivateKey(private_key);
 
-            let decrypted = js_decrypt.decrypt(secret);
+            let size = secret.length / 50 ;
 
-            $('#secret_decrypted').text(decrypted);
+            var regex = /.{1,50}/g;
+            let new_message = secret.match(regex)
+
+            for( let i = 0 ; i< size ; i++ ) {
+                message.push( js_decrypt.decrypt(new_message[i]) );
+            }
+
+            $('#secret_decrypted').text(message.toString());
         });
     });
 </script>
