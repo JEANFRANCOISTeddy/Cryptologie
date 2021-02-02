@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://image.noelshack.com/fichiers/2021/05/2/1612267227-b054c844-c578-4abe-b7e9-1cd375374904-200x200.png" width="150">
+    <img src="https://images-eu.ssl-images-amazon.com/images/I/51CsBBtKGmL.png" width="150">
     <p align="center">
      Cryptology - Course exercises on encryption and decryption techniques
     </p>
