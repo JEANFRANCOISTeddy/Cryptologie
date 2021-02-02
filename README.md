@@ -8,6 +8,10 @@
 ## Description
 <b> - Branch main (TP1) :</b> For this exercise we had to create several web pages, each consisting of an encryption and/or decryption algorithm. In each form, fill in a message to be encrypted as well as a key if the option is present. For certain encryption technique a decryption is possible, you just have to enter your encrypted message and click on "decrypt".
 
+<b> - Branch website-update (TP2) :</b> Improve the TP1 website by encrypting and decrypting texts of (+512 characters) with the possibility to recover the encrypted text by downloading a TXT file. 
+
+<b> - Branch website-update (TP3) :</b>  Improve the TP2 website by encrypting and decrypting upload file and get a new one to download after ASE or RSA encryption. 
+
 ## Installation
 
 ```
@@ -28,5 +32,5 @@ https://github.com/JEANFRANCOISTeddy/Cryptologie.git
 | /MD5 |   MD5 is a widely used hash function. It's been used in a variety of security applications and is also commonly used to check the integrity of files. Though, MD5 is not collision resistant, and it isn't suitable for applications like SSL certificates or digital signatures that rely on this property.    |
 | /RipeMD160 |   RIPEMD-160 is a cryptographic hash function based upon the Merkle–Damgård construction. It is used in the Bitcoin standard. It is a a strengthened version of the RIPEMD algorithm which produces a 128 bit hash digest while the RIPEMD-160 algorithm produces a 160-bit output.   |
 | /SHA2-256 |    SHA-256 is one of the four variants in the SHA-2 set. It isn't as widely used as SHA-1, though it appears to provide much better security.   |
-| /SHA3-512 |       |
+| /SHA3-512 |   Keccak is based on a novel approach called sponge construction. Sponge construction is based on a wide random function or random permutation, and allows inputting ("absorbing" in sponge terminology) any amount of data, and outputting ("squeezing") any amount of data, while acting as a pseudorandom function with regard to all previous inputs. This leads to great flexibility.    |
 | /RSA |   RSA (Rivest–Shamir–Adleman) is an algorithm used by modern computers to encrypt and decrypt messages. It is an asymmetric cryptographic algorithm. Asymmetric means that there are two different keys. This is also called public key cryptography, because one of the keys can be given to anyone. The other key must be kept private.    |
