@@ -11,7 +11,7 @@
 ## Installation
 
 ```
-git clone https://github.com/JEANFRANCOISTeddy/Home-Sale.git
+https://github.com/JEANFRANCOISTeddy/Cryptologie.git
 ```
 
 ## How to use
