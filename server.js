@@ -8,10 +8,6 @@ app.get('/',function(req,res){
     //__dirname : It will resolve to your project folder.
 });
 
-app.get('/about',function(req,res){
-    res.sendFile(path.join(__dirname+'/src/about.html'));
-});
-
 app.get('/MD5',function(req,res){
     res.sendFile(path.join(__dirname+'/src/MD5.html'));
 });

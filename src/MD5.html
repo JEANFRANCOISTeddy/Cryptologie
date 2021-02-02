@@ -25,10 +25,27 @@
             <label for="secret">Encrypted message : </label>
             <textarea class="form-control" id="secret" name="secret"></textarea>
         </div>
+        <center><button type="submit" id="download" class="btn btn-danger">Download</button></center>
     </div>
 </div>
 <script>
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
     $(document).ready(function() {
+        $('#download').on('click', function() {
+            var text = $('#secret').val();
+            var filename = "encrypted_message.txt";
+            download(filename, text);
+        });
+
         $('#encrypt').on('click', function() {
             let message = $('#message').val(); 
             let key = $('#key').val();
