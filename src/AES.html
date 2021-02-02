@@ -89,6 +89,9 @@ $(document).ready(function() {
                 
                 let str = `<button type="submit" id="download_file" class="btn btn-danger">Download</button>`;
                 let html = $.parseHTML(str);
+                if( $('.add_buttons').children().length > 0 ) {
+                    $('#download_file').remove();
+                }
                 $('.add_buttons').append(html);
 
                 $('.add_text').html('Your file has been encrypt, now you can download his new version');
