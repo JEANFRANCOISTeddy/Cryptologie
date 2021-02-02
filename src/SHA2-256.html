@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SHA2-256</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="crypto-js.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <center><h2>SHA2-256 encryption/ decryption DEMO : </h2></center></br>
+    <div>
+        <div class="form-group">
+            <label for="message">Your secret message (for encrypt) OR encrypted message (for decrypt) : </label>
+            <textarea class="form-control" id="message" placeholder="Message" name="message"></textarea>
+        </div>
+        <center><div>
+            <button type="submit" id="encrypt" class="btn btn-primary">Encrypt</button>
+        </div></center>
+        <div class="form-group">
+            <label for="secret">Encrypted message : </label>
+            <textarea class="form-control" id="secret" name="secret"></textarea>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#encrypt').on('click', function() {
+            let message = $('#message').val(); 
+            let hash = CryptoJS.SHA256(message);
+            $('#secret').text(hash);
+        });
+
+        $('#decrypt').on('click', function() {
+            console.log('ok');
+        });
+    });
+</script>
+</body>
+
+</html>
