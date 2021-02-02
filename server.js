@@ -44,6 +44,8 @@ app.get('/RSA',function(req,res){
     res.sendFile(path.join(__dirname+'/src/RSA.html'));
 });
 
+
+
 app.get('/crypto-js.js',function(req,res){
     res.sendFile(path.join(__dirname+'/src/crypto-js.js'));
 });
@@ -59,6 +61,12 @@ app.get('/jquery.blowfish.js',function(req,res){
 app.get('/sha3.js',function(req,res){
     res.sendFile(path.join(__dirname+'/src/sha3.js'));
 });
+
+app.get('/require.js',function(req,res){
+    res.sendFile(path.join(__dirname+'/src/require.js'));
+});
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

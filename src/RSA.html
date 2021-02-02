@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Keccak-512</title>
+    <title>RSA</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="sha3.js"></script>
+    <script type="text/javascript" src="require.js"></script>
 </head>
 <body>
 
 <div class="container">
-    <center><h2>Keccak-512 encryption/ decryption DEMO : </h2></center></br>
+    <center><h2>RSA encryption/ decryption DEMO : </h2></center></br>
     <div>
         <div class="form-group">
             <label for="message">Your secret message (for encrypt) OR encrypted message (for decrypt) : </label>
             <textarea class="form-control" id="message" placeholder="Message" name="message"></textarea>
         </div>
+        <div class="form-group">
+            <label for="key">Key:</label>
+            <input type="text" class="form-control" id="key" placeholder="key" name="key">
+        </div>
         <center><div>
             <button type="submit" id="encrypt" class="btn btn-primary">Encrypt</button>
+            <button type="submit" id="decrypt" class="btn btn-success">Decrypt</button>
         </div></center>
         <div class="form-group">
             <label for="secret">Encrypted message : </label>
@@ -28,15 +33,34 @@
     </div>
 </div>
 <script>
+    function hex_to_ascii(str1)
+    {
+        var hex  = str1.toString();
+        var str = '';
+        for (var n = 0; n < hex.length; n += 2) {
+            str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
+        }
+        return str;
+    }
+
     $(document).ready(function() {
         $('#encrypt').on('click', function() {
             let message = $('#message').val(); 
-            let hash = keccak512(message);
-            $('#secret').text(hash);
+            let key = $('#key').val();
+
+            const key = new NodeRSA({b: 512});
+
+            let encrypted = key.encrypt(message, 'base64');
+
+            $('#secret').text(encrypted);
         });
 
         $('#decrypt').on('click', function() {
-            console.log('ok');
+            let encrypted = $('#message').val();  
+            let key = $('#key').val();
+            let decrypted = CryptoJS.AES.decrypt(encrypted, key);
+            decrypted = hex_to_ascii(decrypted);
+            $('#secret').text(decrypted);
         });
     });
 </script>
