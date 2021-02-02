@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="require.js"></script>
+    <script src="jsencrypt.js"></script>
+    <script src="jsencrypt.min.js"></script>
 </head>
 <body>
 
@@ -15,20 +16,31 @@
     <center><h2>RSA encryption/ decryption DEMO : </h2></center></br>
     <div>
         <div class="form-group">
-            <label for="message">Your secret message (for encrypt) OR encrypted message (for decrypt) : </label>
-            <textarea class="form-control" id="message" placeholder="Message" name="message"></textarea>
+            <label for="private_key">Your private key :</label>
+            <textarea class="form-control" id="private_key" placeholder="Private key" name="private_key"></textarea>
         </div>
         <div class="form-group">
-            <label for="key">Key:</label>
-            <input type="text" class="form-control" id="key" placeholder="key" name="key">
+            <label for="public_key">Public key:</label>
+            <textarea class="form-control" id="public_key" placeholder="Public key" name="public_key"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="input">Input :</label>
+            <textarea class="form-control" id="input" placeholder="Input" name="input"></textarea>
         </div>
         <center><div>
             <button type="submit" id="encrypt" class="btn btn-primary">Encrypt</button>
-            <button type="submit" id="decrypt" class="btn btn-success">Decrypt</button>
         </div></center>
         <div class="form-group">
             <label for="secret">Encrypted message : </label>
-            <textarea class="form-control" id="secret" name="secret"></textarea>
+            <textarea class="form-control" id="secret"  placeholder="Encrypted message" name="secret"></textarea>
+        </div>
+        <center>
+            <button type="submit" id="decrypt" class="btn btn-success">Decrypt</button>
+            <button type="submit" id="download" class="btn btn-danger">Download</button>
+        </center>
+        <div class="form-group">
+            <label for="secret_decrypted">Decrypted message : </label>
+            <textarea class="form-control" id="secret_decrypted"  placeholder="Decrypted message" name="secret_decrypted"></textarea>
         </div>
     </div>
 </div>
@@ -42,25 +54,47 @@
         }
         return str;
     }
+    
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
 
     $(document).ready(function() {
+        $('#download').on('click', function() {
+            var text = $('#secret').val();
+            var filename = "encrypted_message.txt";
+            download(filename, text);
+        });
+
+
         $('#encrypt').on('click', function() {
-            let message = $('#message').val(); 
-            let key = $('#key').val();
+            let public_key = $('#public_key').val(); 
+            let input = $('#input').val();
 
-            const key = new NodeRSA({b: 512});
+            var js_encrypt = new JSEncrypt();
+            js_encrypt.setPublicKey(public_key);
 
-            let encrypted = key.encrypt(message, 'base64');
+            let encrypted = js_encrypt.encrypt(input);
 
             $('#secret').text(encrypted);
         });
 
         $('#decrypt').on('click', function() {
-            let encrypted = $('#message').val();  
-            let key = $('#key').val();
-            let decrypted = CryptoJS.AES.decrypt(encrypted, key);
-            decrypted = hex_to_ascii(decrypted);
-            $('#secret').text(decrypted);
+            let secret = $('#secret').val();  
+            let private_key = $('#private_key').val();
+
+            var js_decrypt = new JSEncrypt();
+            js_decrypt.setPrivateKey(private_key);
+
+            let decrypted = js_decrypt.decrypt(secret);
+
+            $('#secret_decrypted').text(decrypted);
         });
     });
 </script>

@@ -58,11 +58,13 @@ app.get('/sha3.js',function(req,res){
     res.sendFile(path.join(__dirname+'/src/sha3.js'));
 });
 
-app.get('/require.js',function(req,res){
-    res.sendFile(path.join(__dirname+'/src/require.js'));
+app.get('/jsencrypt.min.js',function(req,res){
+    res.sendFile(path.join(__dirname+'/src/jsencrypt.min.js'));
 });
 
-
+app.get('/jsencrypt.js',function(req,res){
+    res.sendFile(path.join(__dirname+'/src/jsencrypt.js'));
+});
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
