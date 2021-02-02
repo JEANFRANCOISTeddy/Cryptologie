@@ -10,6 +10,8 @@
 
 <b> - Branch TP2 (TP2) :</b> Improve the TP1 website by encrypting and decrypting texts of (+512 characters) with the possibility to recover the encrypted text by downloading a TXT file. 
 
+<b> - Branch TP2 (TP3) :</b>  Improve the TP2 website by encrypting and decrypting upload file and get a new one to download after ASE or RSA encryption. 
+
 ## Installation
 
 ```
