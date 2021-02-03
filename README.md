@@ -10,7 +10,7 @@
 
 <b> - Branch website-update (TP2) :</b> Improve the TP1 website by encrypting and decrypting texts of (+512 characters) with the possibility to recover the encrypted text by downloading a TXT file. 
 
-<b> - Branch website-update (TP3) :</b>  Improve the TP2 website by encrypting and decrypting upload file and get a new one to download after ASE or RSA encryption. 
+<b> - Branch website-update (TP3) :</b>  Improve the TP2 website by encrypting and decrypting upload file and get a new one to download after ASE or RSA encryption. Be able to retrieve the Checksum (MD5) of your uploaded file.
 
 ## Installation
 
