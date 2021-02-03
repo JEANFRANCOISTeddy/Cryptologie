@@ -27,6 +27,20 @@
         </div>
         <center><button type="submit" id="download" class="btn btn-danger">Download</button></center>
     </div>
+    <div></br>
+        <div class="form-group">
+            <label for="file_txt">Upload a file : </label>
+            <input type="file" class="form-control" id="file_txt" name="file_txt" accept=".txt">
+        </div>
+        <center><div class="add_text"></div></br></center>
+        <center><div class="add_buttons">
+            <button type="submit" id="encrypt_file" class="btn btn-primary">Encrypt your file</button>
+        </div></center>
+    </div>
+    <div class="form-group">
+        <label for="secret_file">Encrypted message : </label>
+        <textarea class="form-control" id="secret_file" name="secret_file"></textarea>
+    </div>
 </div>
 <script>
     function download(filename, text) {
@@ -46,9 +60,25 @@
             download(filename, text);
         });
 
+    var fileInput = document.querySelector('#file_txt');
+        fileInput.onchange = function() {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var fileContent = reader.result;
+
+            $('#encrypt_file').on('click', function() {
+                let encrypted = CryptoJS.MD5(fileContent);
+                $('#secret_file').html(encodeURIComponent(encrypted));
+                $('.add_text').html('Your file has been encrypt');
+            });
+
+
+        };
+        reader.readAsText(fileInput.files[0]);
+    };
+
         $('#encrypt').on('click', function() {
             let message = $('#message').val(); 
-            let key = $('#key').val();
             let hash = CryptoJS.MD5(message);
             $('#secret').text(hash);
         });
